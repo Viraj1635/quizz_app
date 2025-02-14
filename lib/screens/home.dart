@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quizz_app/screens/settings.dart';
+import 'package:quizz_app/screens/subcategory.dart';
+
+import 'category.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,9 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: theme.appBarTheme.backgroundColor,
-              ),
+              decoration: BoxDecoration(color: theme.appBarTheme.backgroundColor),
               child: Text("Drawer Header", style: TextStyle(color: textColor)),
             ),
             ListTile(
@@ -61,97 +62,80 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: theme.appBarTheme.backgroundColor,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Daily Challenge
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: isDarkMode
-                    ? []
-                    : [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    blurRadius: 5,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Daily Challenge",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
-                  const SizedBox(height: 5),
-                  Text("Complete today's quiz and earn bonus XP!", style: TextStyle(color: textColor)),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: buttonColor,
-                        foregroundColor: buttonTextColor,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      onPressed: () {},
-                      child: const Text("Start Daily Challenge"),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Categories Section
-            Text("Categories",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
-            const SizedBox(height: 10),
-            GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 1.5,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 16, bottom: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _categoryCard(Icons.history, "History", Colors.red, theme),
-                _categoryCard(Icons.science, "Science", Colors.blue, theme),
-                _categoryCard(Icons.public, "Geography", Colors.green, theme),
-                _categoryCard(Icons.menu_book, "Literature", Colors.amber, theme),
+                // Daily Challenge
+                _dailyChallengeCard(cardColor, textColor, buttonColor, buttonTextColor),
+
+                const SizedBox(height: 20),
+
+                // Categories Section
+                // Categories Section with "See All" Button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Categories",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CategoriesScreen()),
+                        );
+                      },
+                      child: Text("See All", style: TextStyle(color: theme.colorScheme.primary)),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+
+                GridView.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: [
+                    _categoryCard(Icons.history, "History", Colors.red, theme, context),
+                    _categoryCard(Icons.science, "Science", Colors.blue, theme, context),
+                    _categoryCard(Icons.public, "Geography", Colors.green, theme, context),
+                    _categoryCard(Icons.menu_book, "Literature", Colors.amber, theme, context),
+                  ],
+                ),
+
+                SizedBox(height: 10), // Reduced space
+
+                // Featured Quizzes
+                Text("Featured Quizzes",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
+                const SizedBox(height: 10),
+                _quizCard("World Capitals", "Geography", "Medium", theme),
+                _quizCard("Famous Scientists", "Science", "Hard", theme),
+                _quizCard("Ancient Civilizations", "History", "Easy", theme),
               ],
             ),
-
-            const SizedBox(height: 20),
-
-            // Featured Quizzes
-            Text("Featured Quizzes",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
-            const SizedBox(height: 10),
-            _quizCard("World Capitals", "Geography", "Medium", theme),
-            _quizCard("Famous Scientists", "Science", "Hard", theme),
-            _quizCard("Ancient Civilizations", "History", "Easy", theme),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _categoryCard(IconData icon, String title, Color color, ThemeData theme) {
-    final bool isDarkMode = theme.brightness == Brightness.dark;
+  Widget _dailyChallengeCard(Color cardColor, Color textColor, Color buttonColor, Color buttonTextColor) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.secondaryContainer,
+        color: cardColor,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: isDarkMode
-            ? []
-            : [
+        boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
             blurRadius: 5,
@@ -160,30 +144,78 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color, size: 40),
+          Text("Daily Challenge",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
+          const SizedBox(height: 5),
+          Text("Complete today's quiz and earn bonus XP!", style: TextStyle(color: textColor)),
           const SizedBox(height: 10),
-          Text(
-            title,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: theme.colorScheme.onSecondaryContainer),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: buttonColor,
+                foregroundColor: buttonTextColor,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              onPressed: () {},
+              child: const Text("Start Daily Challenge"),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _quizCard(String title, String category, String difficulty, ThemeData theme) {
-    final Color textColor = theme.colorScheme.onSurface;
-    final Color difficultyColor = theme.colorScheme.tertiary;
+  Widget _categoryCard(IconData icon, String title, Color color, ThemeData theme, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to SubCategoryPage
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubCategoryScreen(category: title),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.secondaryContainer,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              blurRadius: 5,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color, size: 40),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: theme.colorScheme.onSecondaryContainer),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+
+  Widget _quizCard(String title, String category, String difficulty, ThemeData theme) {
     return Card(
       color: theme.colorScheme.surfaceVariant,
       elevation: 2,
       child: ListTile(
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
-        subtitle: Text(category, style: TextStyle(color: textColor.withOpacity(0.7))),
-        trailing: Text(difficulty, style: TextStyle(color: difficultyColor)),
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: theme.colorScheme.onSurface)),
+        subtitle: Text(category, style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.7))),
+        trailing: Text(difficulty, style: TextStyle(color: theme.colorScheme.tertiary)),
       ),
     );
   }

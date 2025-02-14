@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizz_app/screens/home.dart';
+import 'package:quizz_app/screens/profile.dart';
 import 'package:quizz_app/theme.dart';
 import 'package:quizz_app/widgets/bottom_nav_bar.dart';
 
@@ -26,7 +27,7 @@ class _LayoutState extends State<Layout> {
     HomeScreen(),
     Center(child: Container()),
     Center(child: Text('Statistics Page', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24))),
+    ProfileScreen(),
   ];
 
   @override

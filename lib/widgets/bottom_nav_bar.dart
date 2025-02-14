@@ -64,6 +64,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       animationCurve: Curves.easeInOut,
       onTap: widget.onChange,
       letIndexChange: (index) => true,
+      animationDuration: Duration(milliseconds: 300),
     );
   }
 }
