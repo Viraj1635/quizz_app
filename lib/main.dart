@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizz_app/layout.dart';
 import 'package:quizz_app/screens/home.dart';
+import 'package:quizz_app/screens/login.dart';
+import 'package:quizz_app/screens/splash_screen.dart';
 import 'package:quizz_app/theme.dart';
 
 void main() {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeProvider.themeData,
-      home: Layout(),
+      home: SplashScreen() ,
     );
   }
 }

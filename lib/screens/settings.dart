@@ -5,7 +5,12 @@ import '../theme.dart';
 
 class SettingsScreen extends StatelessWidget {
   final List<String> fonts = [
-    'Roboto', 'Lobster', 'Open Sans', 'Poppins', 'Montserrat'
+    'Roboto',
+    'Pacifico',
+    'Bebas Neue',
+    'Dancing Script',
+    'Raleway',
+    'Playfair Display'
   ];
 
   @override
@@ -15,11 +20,29 @@ class SettingsScreen extends StatelessWidget {
     final bool isDarkMode = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(theme.colorScheme.onPrimary),
+          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "Settings",
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          // Dark Mode Toggle
+          // 🌙 Dark Mode Toggle
           ListTile(
             title: const Text("Dark Mode"),
             trailing: Switch(
@@ -28,9 +51,9 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
 
-          const Divider(), // Adds separation for better UI
+          const Divider(),
 
-          // Font Selection Dropdown
+          // 🔠 Font Selection Dropdown
           ListTile(
             title: const Text("Choose Font"),
             subtitle: DropdownButtonHideUnderline(
@@ -38,11 +61,11 @@ class SettingsScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surface, // Adapts to light/dark mode
+                  color: theme.colorScheme.surface,
                   border: Border.all(color: theme.colorScheme.outline),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
-                    if (!isDarkMode) // Light mode shadow effect
+                    if (!isDarkMode)
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.2),
                         blurRadius: 5,
@@ -53,10 +76,10 @@ class SettingsScreen extends StatelessWidget {
                 child: DropdownButton<String>(
                   value: fonts.contains(themeProvider.fontFamily)
                       ? themeProvider.fontFamily
-                      : fonts.first, // Ensure a valid font is selected
-                  dropdownColor: theme.colorScheme.surfaceVariant, // Themed dropdown
+                      : fonts.first,
+                  dropdownColor: theme.colorScheme.surfaceVariant,
                   icon: Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface),
-                  style: TextStyle(color: theme.colorScheme.onSurface), // Themed text
+                  style: TextStyle(color: theme.colorScheme.onSurface),
                   onChanged: (font) {
                     if (font != null) {
                       themeProvider.setFont(font);

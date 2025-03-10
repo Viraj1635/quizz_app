@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quizz_app/screens/result.dart';
 
 class Testscreen extends StatefulWidget {
@@ -16,20 +15,13 @@ class _TestscreenState extends State<Testscreen> {
   Timer? _timer;
   int _questionIndex = 0;
   int? _selectedOption;
-  String? _textAnswer;
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'type': 'multiple',
       'question': 'If it takes 5 hours for 5 men to dig 5 holes, how long does it take for 100 men to dig 100 holes?',
       'options': ['1 Hour', '2 Hours', '5 Hours', '10 Hours'],
       'correctAnswer': 2
     },
-    {
-      'type': 'text',
-      'question': 'Explain the theory of relativity in brief.',
-      'correctAnswer': 'Explanation should be correct'
-    }
   ];
 
   @override
@@ -82,37 +74,31 @@ class _TestscreenState extends State<Testscreen> {
   }
 
   int _calculateScore() {
-    int score = 0;
-    if (_questions[_questionIndex]['type'] == 'multiple' &&
-        _selectedOption == _questions[_questionIndex]['correctAnswer']) {
-      score++;
-    } else if (_questions[_questionIndex]['type'] == 'text' &&
-        _textAnswer != null &&
-        _textAnswer!.isNotEmpty) {
-      score++;
-    }
-    return score;
+    return _selectedOption == _questions[_questionIndex]['correctAnswer'] ? 1 : 0;
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        backgroundColor: theme.colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.white, size: 36),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(theme.colorScheme.onPrimary),
+          ),
         ),
         title: Text(
           'Aptitude Test',
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 22,
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: theme.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -121,14 +107,13 @@ class _TestscreenState extends State<Testscreen> {
             padding: const EdgeInsets.only(right: 16.0),
             child: Row(
               children: [
-                const Icon(CupertinoIcons.clock, color: Colors.white, size: 18),
+                Icon(CupertinoIcons.clock, color: theme.colorScheme.surface, size: 18),
                 const SizedBox(width: 6),
                 Text(
                   _formattedTime,
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -139,64 +124,69 @@ class _TestscreenState extends State<Testscreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Question Number
             Text(
               "Question ${_questionIndex + 1} of ${_questions.length}",
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.primary,
               ),
             ),
             const SizedBox(height: 12),
-            Text(
-              _questions[_questionIndex]['question'],
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.onSurface,
+
+            // Question Text
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceVariant,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                _questions[_questionIndex]['question'],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface,
+                ),
               ),
             ),
             const SizedBox(height: 24),
-            if (_questions[_questionIndex]['type'] == 'multiple')
-              ..._buildMultipleChoiceOptions(_questions[_questionIndex]['options']),
-            if (_questions[_questionIndex]['type'] == 'text')
-              _buildTextAnswerField(),
+
+            // Multiple Choice Options
+            ..._buildMultipleChoiceOptions(_questions[_questionIndex]['options']),
+
             const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  if (_questionIndex < _questions.length - 1) {
-                    _questionIndex++;
-                    _selectedOption = null;
-                    _textAnswer = null;
-                  } else {
-                    _endQuiz();
-                  }
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.primary,
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    _questionIndex < _questions.length - 1 ? 'Next' : 'Finish',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+
+            // Next / Finish Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (_questionIndex < _questions.length - 1) {
+                      _questionIndex++;
+                      _selectedOption = null;
+                    } else {
+                      _endQuiz();
+                    }
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colorScheme.primary,
+                  foregroundColor: theme.colorScheme.onPrimary,
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  const SizedBox(width: 8),
-                  const Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 22),
-                ],
+                ),
+                child: Text(
+                  _questionIndex < _questions.length - 1 ? 'Next' : 'Finish',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],
@@ -206,10 +196,16 @@ class _TestscreenState extends State<Testscreen> {
   }
 
   List<Widget> _buildMultipleChoiceOptions(List<String> options) {
+    final theme = Theme.of(context);
+    final Color selectedColor = theme.colorScheme.primaryContainer;
+    final Color selectedBorderColor = theme.colorScheme.primary;
+    final Color defaultBorderColor = theme.colorScheme.outlineVariant;
+
     return options.asMap().entries.map((entry) {
       int index = entry.key;
       String text = entry.value;
-      final isSelected = _selectedOption == index;
+      final bool isSelected = _selectedOption == index;
+
       return GestureDetector(
         onTap: () => _selectOption(index),
         child: Container(
@@ -217,33 +213,55 @@ class _TestscreenState extends State<Testscreen> {
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
-            color: isSelected ? Colors.purple[50] : Colors.white,
+            color: isSelected ? selectedColor : theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(
-              color: isSelected ? Colors.purple : Colors.grey[300]!,
+              color: isSelected ? selectedBorderColor : defaultBorderColor,
               width: 2.0,
             ),
+            boxShadow: isSelected
+                ? [
+              BoxShadow(
+                color: theme.colorScheme.primary.withOpacity(0.2),
+                blurRadius: 8,
+                spreadRadius: 2,
+              )
+            ]
+                : [],
           ),
-          child: Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.purple : Colors.black,
-            ),
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isSelected ? theme.colorScheme.primary : Colors.transparent,
+                  border: Border.all(
+                    color: isSelected ? selectedBorderColor : defaultBorderColor,
+                    width: 2.0,
+                  ),
+                ),
+                child: isSelected
+                    ? const Icon(Icons.check, color: Colors.white, size: 18)
+                    : null,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
     }).toList();
-  }
-
-  Widget _buildTextAnswerField() {
-    return TextField(
-      onChanged: (value) => setState(() => _textAnswer = value),
-      decoration: InputDecoration(
-        hintText: 'Type your answer here...',
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-      ),
-    );
   }
 }

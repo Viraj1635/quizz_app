@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quizz_app/screens/test.dart';
+
 class SubtopicDetailsPage extends StatelessWidget {
   final String subtopicName;
   final String subtopicDescription;
 
-  // Constructor to pass the subtopic name and description
-  SubtopicDetailsPage({
+  const SubtopicDetailsPage({
+    super.key,
     required this.subtopicName,
     required this.subtopicDescription,
   });
@@ -18,11 +18,15 @@ class SubtopicDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+          color: theme.colorScheme.onPrimary,
+        ),
         title: Text(
           subtopicName,
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 22,
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: theme.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -33,90 +37,108 @@ class SubtopicDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Subtopic Title
+            // 📌 Subtopic Title
             Text(
               subtopicName,
-              style: GoogleFonts.poppins(
-                fontSize: 24,
+              style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.onSurface,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 12),
 
-            // Subtopic Description
-            Text(
-              subtopicDescription,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+            // 📌 Subtopic Description Box
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceVariant,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    blurRadius: 4,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Text(
+                subtopicDescription,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Other Details (Example: number of questions)
-            Text(
-              'Number of Questions: 10',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Estimated Time: 10 minutes',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 40),
+            // 📌 Info Section
+            _infoRow(theme, Icons.list_alt, "Number of Questions", "10"),
+            _infoRow(theme, Icons.timer, "Estimated Time", "10 minutes"),
+            const SizedBox(height: 40),
 
-            // Start Quiz Button
+            // 📌 Start Quiz Button
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to the test screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => Testscreen(),
-                    ),
+                    MaterialPageRoute(builder: (context) => const Testscreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.primary,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  foregroundColor: theme.colorScheme.onPrimary,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
+                  elevation: 3,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Start Quiz',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 18,
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onPrimary,
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
+                    const SizedBox(width: 10),
+                    Icon(Icons.play_arrow, size: 24, color: theme.colorScheme.onPrimary),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 📌 Info Row Widget
+  Widget _infoRow(ThemeData theme, IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: theme.colorScheme.primary, size: 22),
+          const SizedBox(width: 10),
+          Text(
+            "$label: ",
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+          Text(
+            value,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+        ],
       ),
     );
   }

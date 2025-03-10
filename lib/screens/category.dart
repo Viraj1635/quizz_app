@@ -13,10 +13,33 @@ class CategoriesScreen extends StatelessWidget {
       {"icon": Icons.science, "title": "Science", "color": Colors.blue},
       {"icon": Icons.public, "title": "Geography", "color": Colors.green},
       {"icon": Icons.menu_book, "title": "Literature", "color": Colors.amber},
+      {"icon": Icons.computer, "title": "Technology", "color": Colors.blueGrey},  // New Category
+      {"icon": Icons.sports_soccer, "title": "Sports", "color": Colors.orange},   // New Category
+      {"icon": Icons.calculate, "title": "Mathematics", "color": Colors.purple},  // New Category
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Categories")),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(theme.colorScheme.onPrimary),
+          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "Categories",
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: theme.colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        elevation: 0, // Optional: Removes shadow for a cleaner look
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
@@ -25,7 +48,7 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 1.4,
+            childAspectRatio: 1.3, // Adjusted for better spacing
           ),
           itemBuilder: (context, index) {
             return GestureDetector(
@@ -42,7 +65,7 @@ class CategoriesScreen extends StatelessWidget {
                 categories[index]["title"],
                 categories[index]["color"],
                 theme,
-                context
+                context,
               ),
             );
           },
@@ -54,7 +77,6 @@ class CategoriesScreen extends StatelessWidget {
   Widget _categoryCard(IconData icon, String title, Color color, ThemeData theme, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to SubCategoryPage
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -66,11 +88,11 @@ class CategoriesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: theme.colorScheme.secondaryContainer,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 5,
+              color: Colors.grey.withOpacity(0.3),
+              blurRadius: 6,
               spreadRadius: 2,
             ),
           ],
@@ -82,12 +104,15 @@ class CategoriesScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: theme.colorScheme.onSecondaryContainer),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onSecondaryContainer,
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
 }

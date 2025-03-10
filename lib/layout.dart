@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizz_app/screens/custom_quiz.dart';
 import 'package:quizz_app/screens/home.dart';
 import 'package:quizz_app/screens/profile.dart';
+import 'package:quizz_app/screens/statistic.dart';
 import 'package:quizz_app/theme.dart';
 import 'package:quizz_app/widgets/bottom_nav_bar.dart';
 
@@ -25,8 +27,8 @@ class _LayoutState extends State<Layout> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    Center(child: Container()),
-    Center(child: Text('Statistics Page', style: TextStyle(fontSize: 24))),
+    CustomQuizzesScreen(),
+    StatisticsScreen(),
     ProfileScreen(),
   ];
 
