@@ -1,0 +1,2 @@
+D:/viraj/quizz_app/android/app/.cxx/Debug/284f1540/x86/CMakeFiles/edit_cache.dir
+D:/viraj/quizz_app/android/app/.cxx/Debug/284f1540/x86/CMakeFiles/rebuild_cache.dir
