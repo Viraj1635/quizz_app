@@ -14,53 +14,53 @@ class SubCategoryScreen extends StatelessWidget {
     // Extended subcategories with more topics and new categories
     final Map<String, List<Map<String, dynamic>>> subcategories = {
       "History": [
-        {"title": "World Wars", "description": "Explore the major events of world wars", "color": Colors.red},
-        {"title": "Ancient Civilizations", "description": "Study ancient cultures and their history", "color": Colors.orange},
-        {"title": "Modern History", "description": "Discover the events shaping the modern world", "color": Colors.blue},
-        {"title": "Medieval Europe", "description": "Understand the feudal system and medieval life", "color": Colors.green},
-        {"title": "Revolutions", "description": "Learn about major revolutions that changed history", "color": Colors.purple},
+        {"title": "World Wars", "description": "Explore the major events of world wars", "color": Color(0xFF8A5A5A)}, // Muted Brick Red
+        {"title": "Ancient Civilizations", "description": "Study ancient cultures and their history", "color": Color(0xFFB08968)}, // Warm Desert Tan
+        {"title": "Modern History", "description": "Discover the events shaping the modern world", "color": Color(0xFF4E6E81)}, // Muted Deep Blue
+        {"title": "Medieval Europe", "description": "Understand the feudal system and medieval life", "color": Color(0xFF6A994E)}, // Soft Forest Green
+        {"title": "Revolutions", "description": "Learn about major revolutions that changed history", "color": Color(0xFF8B6BB8)}, // Dusky Purple
       ],
       "Science": [
-        {"title": "Physics", "description": "Delve into the laws of physics and their applications", "color": Colors.green},
-        {"title": "Chemistry", "description": "Learn about chemical reactions and elements", "color": Colors.purple},
-        {"title": "Biology", "description": "Study the science of life and living organisms", "color": Colors.teal},
-        {"title": "Astronomy", "description": "Explore the universe, stars, and planets", "color": Colors.blue},
-        {"title": "Genetics", "description": "Understand DNA, genes, and hereditary traits", "color": Colors.red},
+        {"title": "Physics", "description": "Delve into the laws of physics and their applications", "color": Color(0xFF6A994E)}, // Earthy Green
+        {"title": "Chemistry", "description": "Learn about chemical reactions and elements", "color": Color(0xFF8B6BB8)}, // Dusky Purple
+        {"title": "Biology", "description": "Study the science of life and living organisms", "color": Color(0xFF5E81AC)}, // Cool Slate Blue
+        {"title": "Astronomy", "description": "Explore the universe, stars, and planets", "color": Color(0xFF4C7397)}, // Muted Space Blue
+        {"title": "Genetics", "description": "Understand DNA, genes, and hereditary traits", "color": Color(0xFF9E5A63)}, // Muted Burgundy
       ],
       "Geography": [
-        {"title": "World Capitals", "description": "Learn about the capitals of different countries", "color": Colors.brown},
-        {"title": "Landforms", "description": "Explore natural landforms across the globe", "color": Colors.green},
-        {"title": "Oceans & Rivers", "description": "Understand the world's major oceans and rivers", "color": Colors.blue},
-        {"title": "Climates & Biomes", "description": "Study different climates and ecosystems", "color": Colors.orange},
-        {"title": "Human Geography", "description": "Discover how humans interact with their environment", "color": Colors.purple},
+        {"title": "World Capitals", "description": "Learn about the capitals of different countries", "color": Color(0xFF826F66)}, // Soft Mocha
+        {"title": "Landforms", "description": "Explore natural landforms across the globe", "color": Color(0xFF6A994E)}, // Earthy Green
+        {"title": "Oceans & Rivers", "description": "Understand the world's major oceans and rivers", "color": Color(0xFF4C7397)}, // Ocean Blue
+        {"title": "Climates & Biomes", "description": "Study different climates and ecosystems", "color": Color(0xFFB08968)}, // Warm Desert Tan
+        {"title": "Human Geography", "description": "Discover how humans interact with their environment", "color": Color(0xFF8B6BB8)}, // Dusky Purple
       ],
       "Literature": [
-        {"title": "Classic Novels", "description": "Study classic works from famous authors", "color": Colors.red},
-        {"title": "Poetry", "description": "Dive into the world of rhythm and verses", "color": Colors.purple},
-        {"title": "Authors", "description": "Explore the lives and works of prominent writers", "color": Colors.orange},
-        {"title": "Shakespeare", "description": "Analyze the plays and sonnets of Shakespeare", "color": Colors.blue},
-        {"title": "Literary Movements", "description": "Learn about different literary periods and styles", "color": Colors.green},
+        {"title": "Classic Novels", "description": "Study classic works from famous authors", "color": Color(0xFF9E5A63)}, // Muted Burgundy
+        {"title": "Poetry", "description": "Dive into the world of rhythm and verses", "color": Color(0xFF8B6BB8)}, // Dusky Purple
+        {"title": "Authors", "description": "Explore the lives and works of prominent writers", "color": Color(0xFFB08968)}, // Warm Desert Tan
+        {"title": "Shakespeare", "description": "Analyze the plays and sonnets of Shakespeare", "color": Color(0xFF4E6E81)}, // Deep Muted Blue
+        {"title": "Literary Movements", "description": "Learn about different literary periods and styles", "color": Color(0xFF6A994E)}, // Earthy Green
       ],
       "Technology": [
-        {"title": "Artificial Intelligence", "description": "Understand AI and machine learning concepts", "color": Colors.blueGrey},
-        {"title": "Cybersecurity", "description": "Learn how to protect systems and data", "color": Colors.redAccent},
-        {"title": "Blockchain", "description": "Explore cryptocurrency and decentralized networks", "color": Colors.deepPurple},
-        {"title": "Software Development", "description": "Understand coding, programming languages, and development", "color": Colors.green},
-        {"title": "Cloud Computing", "description": "Study cloud storage, services, and infrastructure", "color": Colors.orange},
+        {"title": "Artificial Intelligence", "description": "Understand AI and machine learning concepts", "color": Color(0xFF576F72)}, // Soft Blue-Grey
+        {"title": "Cybersecurity", "description": "Learn how to protect systems and data", "color": Color(0xFF9E5A63)}, // Muted Burgundy
+        {"title": "Blockchain", "description": "Explore cryptocurrency and decentralized networks", "color": Color(0xFF6A5ACD)}, // Soft Purple-Blue
+        {"title": "Software Development", "description": "Understand coding, programming languages, and development", "color": Color(0xFF6A994E)}, // Earthy Green
+        {"title": "Cloud Computing", "description": "Study cloud storage, services, and infrastructure", "color": Color(0xFFB08968)}, // Warm Desert Tan
       ],
       "Sports": [
-        {"title": "Football", "description": "Learn about the history and rules of football", "color": Colors.brown},
-        {"title": "Basketball", "description": "Explore the world of basketball and famous players", "color": Colors.orange},
-        {"title": "Olympics", "description": "Understand the history and significance of the Olympics", "color": Colors.red},
-        {"title": "Tennis", "description": "Study the rules, players, and tournaments of tennis", "color": Colors.green},
-        {"title": "Cricket", "description": "Discover the rules and history of cricket", "color": Colors.blue},
+        {"title": "Football", "description": "Learn about the history and rules of football", "color": Color(0xFF826F66)}, // Soft Mocha
+        {"title": "Basketball", "description": "Explore the world of basketball and famous players", "color": Color(0xFFB08968)}, // Warm Desert Tan
+        {"title": "Olympics", "description": "Understand the history and significance of the Olympics", "color": Color(0xFF9E5A63)}, // Muted Burgundy
+        {"title": "Tennis", "description": "Study the rules, players, and tournaments of tennis", "color": Color(0xFF6A994E)}, // Earthy Green
+        {"title": "Cricket", "description": "Discover the rules and history of cricket", "color": Color(0xFF4C7397)}, // Muted Deep Blue
       ],
       "Mathematics": [
-        {"title": "Algebra", "description": "Solve equations and understand algebraic expressions", "color": Colors.purple},
-        {"title": "Geometry", "description": "Learn about shapes, angles, and formulas", "color": Colors.blue},
-        {"title": "Calculus", "description": "Understand derivatives, integrals, and limits", "color": Colors.green},
-        {"title": "Probability & Statistics", "description": "Study data analysis and probability concepts", "color": Colors.orange},
-        {"title": "Number Theory", "description": "Explore the properties of numbers and mathematical patterns", "color": Colors.red},
+        {"title": "Algebra", "description": "Solve equations and understand algebraic expressions", "color": Color(0xFF8B6BB8)}, // Dusky Purple
+        {"title": "Geometry", "description": "Learn about shapes, angles, and formulas", "color": Color(0xFF4E6E81)}, // Muted Deep Blue
+        {"title": "Calculus", "description": "Understand derivatives, integrals, and limits", "color": Color(0xFF6A994E)}, // Soft Forest Green
+        {"title": "Probability & Statistics", "description": "Study data analysis and probability concepts", "color": Color(0xFFB08968)}, // Warm Desert Tan
+        {"title": "Number Theory", "description": "Explore the properties of numbers and mathematical patterns", "color": Color(0xFF9E5A63)}, // Muted Burgundy
       ],
     };
 

@@ -136,11 +136,18 @@ class _CustomQuizzesScreenState extends State<CustomQuizzesScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final newQuiz = await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const CreateCustomQuizScreen()),
               );
+
+              // ✅ If a quiz was created, update the list
+              if (newQuiz != null) {
+                setState(() {
+                  userQuizzes.add(newQuiz);
+                });
+              }
             },
             child: const Text("Create"),
           ),

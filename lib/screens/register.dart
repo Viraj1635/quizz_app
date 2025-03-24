@@ -160,7 +160,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     // ✅ Register Button
                     ElevatedButton(
-                      onPressed: _validateAndRegister,
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Layout()));
+
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
                         backgroundColor: theme.colorScheme.primary,

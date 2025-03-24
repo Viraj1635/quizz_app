@@ -8,14 +8,14 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final List<Map<String, dynamic>> categories = [
-      {"icon": Icons.history, "title": "History", "color": Colors.red},
-      {"icon": Icons.science, "title": "Science", "color": Colors.blue},
-      {"icon": Icons.public, "title": "Geography", "color": Colors.green},
-      {"icon": Icons.menu_book, "title": "Literature", "color": Colors.amber},
-      {"icon": Icons.computer, "title": "Technology", "color": Colors.blueGrey},  // New Category
-      {"icon": Icons.sports_soccer, "title": "Sports", "color": Colors.orange},   // New Category
-      {"icon": Icons.calculate, "title": "Mathematics", "color": Colors.purple},  // New Category
+    final List<Map<String, dynamic>> categories =[
+      {"icon": Icons.history, "title": "History", "color": Color(0xFFD76D77)}, // Warm Rose
+      {"icon": Icons.science, "title": "Science", "color": Color(0xFF4A90E2)}, // Bright Blue
+      {"icon": Icons.public, "title": "Geography", "color": Color(0xFF70A288)}, // Fresh Green
+      {"icon": Icons.menu_book, "title": "Literature", "color": Color(0xFFEE964B)}, // Vibrant Orange
+      {"icon": Icons.computer, "title": "Technology", "color": Color(0xFF5E81AC)}, // Cool Blue-Grey
+      {"icon": Icons.sports_soccer, "title": "Sports", "color": Color(0xFFF4A261)}, // Soft Amber
+      {"icon": Icons.calculate, "title": "Mathematics", "color": Color(0xFF9B5DE5)}, // Playful Purple
     ];
 
     return Scaffold(

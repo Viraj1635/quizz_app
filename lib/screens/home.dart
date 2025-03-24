@@ -236,10 +236,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     children: [
-                      _categoryCard(Icons.history, "History", Colors.red, theme, context),
-                      _categoryCard(Icons.science, "Science", Colors.blue, theme, context),
-                      _categoryCard(Icons.public, "Geography", Colors.green, theme, context),
-                      _categoryCard(Icons.menu_book, "Literature", Colors.amber, theme, context),
+                      _categoryCard(Icons.history, "History", Color(0xFFD76D77), theme, context),   // Muted Deep Blue
+                      _categoryCard(Icons.science, "Science", Color(0xFF4A90E2), theme, context),   // Cool Slate Blue
+                      _categoryCard(Icons.public, "Geography", Color(0xFF70A288), theme, context),  // Soft Forest Green
+                      _categoryCard(Icons.menu_book, "Literature", Color(0xFFEE964B), theme, context), // Warm Muted Amber
                     ],
                   ),
                   SizedBox(height: 10),
